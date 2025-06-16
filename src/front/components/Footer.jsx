@@ -25,7 +25,7 @@ export const Footer = () => (
 					<h6 className="text-decoration-none text-white">Acerca de Nomadik</h6>
 					<div className="container-fluid d-flex flex-column justify-content-center align-items-center">
 						<Link to={"/nosotros"} className="text-decoration-none text-white">Sobre Nosotros</Link>
-						<Link to={"/misionyvision"} className="text-decoration-none text-white">Mision y Vision</Link>
+						<Link to={"/visionmision"} className="text-decoration-none text-white">Mision y Vision</Link>
 						<a href="http://">Team Members</a>
 					</div>
 				</div>
