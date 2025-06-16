@@ -1,27 +1,97 @@
+body{
+  background-image: url("/src/front/assets/img/bg2.png");
+  background-size: 10%;
+  background-repeat: repeat;
+  background-color: #F2EFE7;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.PageContent {
+  flex: 1;
+}
+
+.TextDark{
+  color: #006A71;
+}
+
+.BannerLogin{
+    background-repeat: repeat-y;
+    background-position-y: top;
+    background-size: 100% auto;
+}
+
+.BannerLoginLeft{
+	background-image: url("/src/front/assets/img/login-1.png");
+}
+
+.BannerLoginRight{
+	background-image: url("/src/front/assets/img/login-2.png");
+
+}
+
+.NavbarUserPill{
+	height: 40px;
+	background-color: #48A6A7;
+}
+
+.NavbarUserPill img{
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+}
+
+.NavbarDropdown{
+  background-color: #48A6A7;
+}
+.NavbarDropdown li:hover{
+  background-color: #006A71;
+}
+
+.NavbarSearch{
+    min-width: 100px;
+    width: fit-content;
+}
+
+.NavbarSearchDropdown{
+    max-height: 300px;
+    width: auto;
+    min-width: 250px;
+    scrollbar-width: thin;
+    overflow: auto;
+}
+
 .navbg{
     background-color: #317373;
 }
+
 .footer{
   background-color: #48A6A7;
 }
+
 .logo{
     max-width: 3.5rem;
     margin-left: 2rem;
 }
 
-.myBtn{
+.navbarButton{
   background-color: #48A6A7;
   color: white;
+  width: 80px;
+  justify-content: center;
+}
+
+.navbarButton:hover, .NavbarUserPill:hover{
+	background-color: #9ACBD0;
 }
 
 .btn-success.myBtn:hover{
   background-color: #9ACBD0 !important;
   border-color: #0d8d90 !important;
-}
-
-.busquedaBarra{
-    width: 100%;
-    max-width: 100%;
 }
 
 .iconoInsta{
@@ -74,6 +144,17 @@
   border-color: #0d8d90 !important;
 }
 
+
+.valor-card2 {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.valor-card2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: #0d8d90 !important;
+}
+
 .fotoCreador {
   object-fit: cover;
   height: 150px;
@@ -84,7 +165,7 @@
 
 .manifiesto-section {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-              url('src/front/assets/img/fondo-montaña.jpg') no-repeat center center;
+              url('/src/front/assets/img/fondo-montaña.jpg') no-repeat center center;
   background-size: cover;
   border-radius: 1rem;
 }
@@ -126,4 +207,11 @@
 .textFormat{
   font-size: 0.85em;
   color: grey;
+}
+
+.buttonStyle{
+  width: 5em;
+  height: 5em;
+  vertical-align: middle;
+  align-self: anchor-center
 }

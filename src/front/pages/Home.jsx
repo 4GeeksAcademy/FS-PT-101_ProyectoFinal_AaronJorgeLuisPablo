@@ -29,7 +29,6 @@ export const Home = () => {
 	}
 
 	useEffect(() => {
-		loadMessage()
 	}, [])
 
 	return (
@@ -38,15 +37,14 @@ export const Home = () => {
 			<p className="lead">
 				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
 			</p>
-			<div className="alert alert-info">
-				{store.message ? (
-					<span>{store.message}</span>
-				) : (
-					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
-					</span>
-				)}
-			</div>
+			{/* <iframe
+				width="450"
+				height="450"
+				style={{border:0}}
+				loading="lazy"
+				referrerPolicy="no-referrer-when-downgrade"
+				src="https://www.google.com/maps/embed/v1/place?key=&q=Plaza+Gulliver,España">
+				</iframe> */}
 		</div>
 	);
 }; 

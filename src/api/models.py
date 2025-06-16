@@ -34,7 +34,7 @@ class Users(db.Model):
     telephone: Mapped[str] = mapped_column(String(15), unique=True, nullable=False)
     NID: Mapped[str] = mapped_column(String(10), unique=True, nullable=False)
     creation_date: Mapped[datetime] = mapped_column(DateTime(), default=datetime.utcnow, nullable=False)
-    avatar_url: Mapped[str] = mapped_column(String, nullable=False)
+    avatar_url: Mapped[str] = mapped_column(String, default="0.jpg")
     address: Mapped[str] = mapped_column(String, nullable=False)
     city: Mapped[str] = mapped_column(String, nullable=False)
     birthdate: Mapped[datetime] = mapped_column(DateTime(), nullable=False)
@@ -57,12 +57,12 @@ class Users(db.Model):
             "surname": self.surname,
             "telephone": self.telephone,
             "NID": self.NID,
-            "creation_date": self.creation_date,
+            "creation_date": self.creation_date.isoformat(),
             "is_active": self.is_active,
             "avatar_url": self.avatar_url,
             "address": self.address,
             "city": self.city,
-            "birthdate": self.birthdate,
+            "birthdate": self.birthdate.isoformat(),
             "gender": self.gender.value,
             "is_professional": True if self.professional else False,
             "professional": prof,
@@ -95,7 +95,7 @@ class Professionals(db.Model):
                     count += 1
             if count > 0:
               rating = rating / count
-        user = {"email": self.user.email, "username": self.user.username, "name": self.user.name, "surname": self.user.surname, "telephone": self.user.telephone,"creation_date": self.user.creation_date, "avatar_url": self.user.avatar_url}
+        user = {"email": self.user.email, "username": self.user.username, "name": self.user.name, "surname": self.user.surname, "telephone": self.user.telephone,"creation_date": self.user.creation_date.isoformat(), "avatar_url": self.user.avatar_url}
         return {
             "user_id": self.user_id,
             "bio": self.bio,
@@ -130,9 +130,9 @@ class Activities(db.Model):
             "id": self.id,
             "price": self.price,
             "slots": self.slots,
-            "creation_date": self.creation_date,
-            "start_date": self.start_date,
-            "end_date": self.end_date,
+            "creation_date": self.creation_date.isoformat(),
+            "start_date": self.start_date.isoformat(),
+            "end_date": self.end_date.isoformat(),
             "is_finished": self.is_finished,
             "meeting_point": self.meeting_point,
             "is_active": self.is_active,
@@ -173,7 +173,7 @@ class Info_activity(db.Model):
             "desc": self.desc,
             "type": self.type.value,
             "location": self.location,
-            "last_update": self.last_update,
+            "last_update": self.last_update.isoformat(),
             "rating": rating,
             "media": [m.url for m in self.media],
             "reviews": [r.serialize() for r in self.reviews],
@@ -195,9 +195,9 @@ class Inscriptions(db.Model):
         return {
             "id": self.id,
             "activity_id": self.activity_id,
-            "inscription_date": self.inscription_date,
+            "inscription_date": self.inscription_date.isoformat(),
             "is_active": self.is_active,
-            "activity": self.activity.id if self.activity else None,
+            "activity": self.activity.serialize() if self.activity else None,
             "user": self.user.id if self.user else None
         }
 
@@ -260,7 +260,7 @@ class Reviews(db.Model):
             "activity_rating": self.activity_rating,
             "professional_message": self.professional_message,
             "activity_message": self.activity_message,
-            "creation_date": self.creation_date,
+            "creation_date": self.creation_date.isoformat(),
             "user": {"id": self.user.id, "username": self.user.username},
             "info_activity": {"id": self.info_activity.id, "name": self.info_activity.name},
             "professional": {"user_id": self.professional.user_id, "username": self.professional.user.username}
@@ -287,5 +287,6 @@ class Reports(db.Model):
             "user": {"id": self.user.id, "username": self.user.username} if self.user else None,
             "professional": {"id": self.professional.user_id, "username": self.professional.user.username} if self.professional else None,
             "info_activity": {"id": self.info_activity.id, "name": self.info_activity.name} if self.info_activity else None,
-            "is_checked": self.is_checked
+            "is_checked": self.is_checked,
+            "creation_date": self.creation_date.isoformat()
         }

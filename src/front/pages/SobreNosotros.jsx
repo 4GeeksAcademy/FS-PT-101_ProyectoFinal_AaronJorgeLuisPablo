@@ -4,7 +4,7 @@ import React from "react";
 export const SobreNosotros = () => {
     return (
         <>
-            <div className="container my-5">
+            <div className="container my-5 bg-white px-3">
 
                 <div className="manifiesto-section my-5 py-5 text-center text-white rounded">
                     <div className="container px-4">

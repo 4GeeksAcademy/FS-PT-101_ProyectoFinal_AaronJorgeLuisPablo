@@ -26,6 +26,10 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 jwt = JWTManager(app)
 
+# Image folder configuration
+UPLOAD_FOLDER = 'src/front/assets/avatar/'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import useGlobalReducer from "../hooks/useGlobalReducer"
 import { ActivityCard } from "../components/ActivityCard"
 import collection from "../services/collection"
+import { Link } from "react-router-dom";
 
 export const Activities = () => {
 
@@ -28,22 +29,22 @@ useEffect(()=>{
 
 },[store])
 
-function checkActive(int){
+
+function returnActive(){
 
     let newArray = []
 
     for(let i = 0; i<store.all_activities.length;i++){
 
-        if(store.all_activities[int].is_active==true){
+        if(store.all_activities[i].is_finished==false){
             
-            newArray.join(store.all_activities[int])
+            newArray.push(store.all_activities[i])
 
         }
     }
     
     return newArray
 }
-
 
 
 return(
@@ -56,11 +57,13 @@ return(
 
         <div className="d-flex justify-content-around">
 
-            <ActivityCard img={"src/front/assets/img/Padel.webp"} title={"Actividades deportivas"} description={"Apúntate a diversas actividades deportivas para mantenerte sano y en forma"}></ActivityCard>
+           <Link className="text-decoration-none valor-card2"  to={'/activities/sport'}><ActivityCard img={"src/front/assets/img/Padel.webp"} title={"Actividades deportivas"} description={"Apúntate a diversas actividades deportivas para mantenerte sano y en forma"}></ActivityCard></Link>
+           
 
-            <ActivityCard img={"src/front/assets/img/Ruinas.jpeg"} title={"Actividades turísticas"} description={"Recorre el mundo descubriendo nuevas ubicaciones con un encanto exótico"}></ActivityCard>
+           <Link className="text-decoration-none valor-card2" to={'/activities/tourism'}><ActivityCard img={"src/front/assets/img/Ruinas.jpeg"} title={"Actividades turísticas"} description={"Recorre el mundo descubriendo nuevas ubicaciones con un encanto exótico"}></ActivityCard></Link>
 
-            <ActivityCard img={"src/front/assets/img/Poker.webp"} title={"Actividades recreativas"} description={"No te quedes sin sitio en nuestras actividades recreativas donde puedes pasar un buen rato, y de paso, conocer gente"}></ActivityCard>
+
+           <Link className="text-decoration-none valor-card2" to={'/activities/leisure'}><ActivityCard img={"src/front/assets/img/Poker.webp"} title={"Actividades recreativas"} description={"No te quedes sin sitio en nuestras actividades recreativas donde puedes pasar un buen rato"}></ActivityCard></Link>
 
         </div>
 
@@ -69,12 +72,15 @@ return(
 
         <div className="d-flex justify-content-around">
 
-            <ActivityCard img={"src/front/assets/img/Dummy.jpg"} title={store.all_activities[counter1]?.info_activity.name} origin={store.all_activities[counter1]?.meeting_point} description={store.all_activities[counter1]?.info_activity.desc.slice(0,100)}></ActivityCard>
+            <button className="buttonStyle rounded-circle"><i class="fa-solid fa-arrow-left"></i></button>
 
-            <ActivityCard img={"src/front/assets/img/Dummy.jpg"} title={store.all_activities[counter2]?.info_activity.name} origin={store.all_activities[counter2]?.meeting_point} description={store.all_activities[counter2]?.info_activity.desc.slice(0,100)}></ActivityCard>
+           <Link className="text-decoration-none valor-card2"  to={'/activities/' + store.all_activities[counter1]?.id}><ActivityCard img={store.all_activities[counter1]?.info_activity.media[0]} title={store.all_activities[counter1]?.info_activity.name} origin={store.all_activities[counter1]?.meeting_point} description={store.all_activities[counter1]?.info_activity.desc.slice(0,100)}></ActivityCard></Link>
 
-            <ActivityCard img={"src/front/assets/img/Dummy.jpg"} title={store.all_activities[counter3]?.info_activity.name} origin={store.all_activities[counter3]?.meeting_point} description={store.all_activities[counter3]?.info_activity.desc.slice(0,100)}></ActivityCard>
+           <Link className="text-decoration-none valor-card2"  to={'/activities/' + store.all_activities[counter2]?.id}> <ActivityCard img={store.all_activities[counter2]?.info_activity.media[0]} title={store.all_activities[counter2]?.info_activity.name} origin={store.all_activities[counter2]?.meeting_point} description={store.all_activities[counter2]?.info_activity.desc.slice(0,100)}></ActivityCard></Link>
 
+           <Link className="text-decoration-none valor-card2"  to={'/activities/' + store.all_activities[counter3]?.id}><ActivityCard img={store.all_activities[counter3]?.info_activity.media[0]} title={store.all_activities[counter3]?.info_activity.name} origin={store.all_activities[counter3]?.meeting_point} description={store.all_activities[counter3]?.info_activity.desc.slice(0,100)}></ActivityCard></Link>
+
+            <button className="buttonStyle rounded-circle"><i class="fa-solid fa-arrow-right"></i></button>
 
         </div>
 
@@ -82,11 +88,15 @@ return(
 
         <div className="d-flex justify-content-around">
 
-            <ActivityCard img={"src/front/assets/img/Dummy.jpg"} title={"Actividad 1"} origin={"Unknown"} description={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus tempore cupiditate, blanditiis"} timeleft={"Faltan 3 horas"}></ActivityCard>
+            <button className="buttonStyle rounded-circle"><i class="fa-solid fa-arrow-left"></i></button>
 
-            <ActivityCard img={"src/front/assets/img/Dummy.jpg"} title={"Actividad 2"} origin={"Unknown"} description={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus tempore cupiditate, blanditiis"} timeleft={"Faltan 15 horas"}></ActivityCard>
+            <Link className="text-decoration-none valor-card2"  to={'/activities/' + returnActive()[counter1]?.id}><ActivityCard img={returnActive()[counter1]?.info_activity.media[0]} title={returnActive()[counter1]?.info_activity.name} origin={returnActive()[counter1]?.meeting_point} description={returnActive()[counter1]?.info_activity.desc.slice(0,100)} timeleft={"Faltan 3 horas"}></ActivityCard></Link>
 
-            <ActivityCard img={"src/front/assets/img/Dummy.jpg"} title={"Actividad 3"} origin={"Unknown"} description={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus tempore cupiditate, blanditiis"} timeleft={"Faltan 2 días"}></ActivityCard>
+            <Link className="text-decoration-none valor-card2"  to={'/activities/' + returnActive()[counter2]?.id}><ActivityCard img={returnActive()[counter2]?.info_activity.media[0]} title={returnActive()[counter2]?.info_activity.name} origin={returnActive()[counter2]?.meeting_point} description={returnActive()[counter2]?.info_activity.desc.slice(0,100)} timeleft={"Faltan 15 horas"}></ActivityCard></Link>
+
+            <Link className="text-decoration-none valor-card2"  to={'/activities/' + returnActive()[counter3]?.id}><ActivityCard img={returnActive()[counter3]?.info_activity.media[0]} title={returnActive()[counter3]?.info_activity.name} origin={returnActive()[counter3]?.meeting_point} description={returnActive()[counter3]?.info_activity.desc.slice(0,100)} timeleft={"Faltan 2 días"}></ActivityCard></Link>
+            
+            <button className="buttonStyle rounded-circle"><i class="fa-solid fa-arrow-right"></i></button>
 
         </div>
     </div>
