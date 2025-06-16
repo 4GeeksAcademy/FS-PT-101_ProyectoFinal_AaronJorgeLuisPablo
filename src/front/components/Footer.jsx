@@ -26,7 +26,7 @@ export const Footer = () => (
 					<h6>Acerca de Nomadik</h6>
 					<div className="container-fluid d-flex flex-column justify-content-center align-items-center">
 						<Link to={"/nosotros"}>Sobre Nosotros</Link>
-						<a href="http://">Mision y Vision</a>
+						<Link to={"/misionyvision"} >Mision y Vision</Link>
 						<a href="http://">Team Members</a>
 					</div>
 				</div>
