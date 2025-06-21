@@ -68,9 +68,9 @@ export const Navbar = () => {
 						<div className="nav-item dropdown" ref={dropRef}>
 							<a className="nav-link dropdown-toggle text-white fw-semibold" onClick={handleClickExcursiones} role="button" data-bs-toggle="dropdown" aria-expanded="false">Excursiones</a>
 							<ul className="dropdown-menu dropdown-menu-dark NavbarDropdown text-center text-lg-start">
-								<li><a className="dropdown-item text-white" href="#">Deporte</a></li>
-								<li><a className="dropdown-item text-white" href="#">Ocio</a></li>
-								<li><a className="dropdown-item text-white" href="#">Turismo</a></li>
+								<li><Link className="dropdown-item text-white" to="/sport">Deporte</Link></li>
+								<li><Link className="dropdown-item text-white" to="/leisure">Ocio</Link></li>
+								<li><Link className="dropdown-item text-white" to="/tourism">Turismo</Link></li>
 							</ul>
 						</div>
 						<Link className="nav-item nav-link active text-white fs-6 fw-semibold" to={"/"}>Equipo</Link>

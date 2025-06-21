@@ -43,6 +43,9 @@ export const router = createBrowserRouter(
       <Route path="/contacto" element={<Contacto/>} />
       <Route path="/personalspace" element={<PersonalSpace />} />
       <Route path="/detailsprofessional/:id" element={<DetailsProfessional />} />
+      <Route path="/sport" element={<Sport /> } />
+      <Route path="/leisure" element={<Leisure />} />
+      <Route path="/tourism" element={<Tourism />} />
     </Route>
   ),
   {
