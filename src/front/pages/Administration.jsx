@@ -73,8 +73,8 @@ export const Administration = () => {
                 <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex="0">
                     <div className="row d-flex resizeBox">
 
-                        {store.all_users?.map((item, i) =>
-                            <UserCard avatar={"/public/avatar/" + item.avatar_url} username={item.username} name={item.name} surname={item.surname} email={item.email} business={item.professional?.business_name} rating={item.professional?.rating.toFixed(2)} type={item.professional?.type} is_professional={item.is_professional} />
+                        {store.all_users?.filter((item,i) => item.is_active == true).map((item, i) =>
+                            <UserCard navigate={() => navigate("/user/" + item.id)} avatar={"/public/avatar/" + item.avatar_url} username={item.username} name={item.name} surname={item.surname} email={item.email} business={item.professional?.business_name} rating={item.professional?.rating.toFixed(2)} type={item.professional?.type} is_professional={item.is_professional} />
                         )}
                     </div>
                 </div>

@@ -904,4 +904,11 @@ body.modal-open {
   color:#FFFFFF;
   background-color: #9ACBD0;
 }
+.linkUserActivity{
+  color:#006A71;
+}
+.linkUserActivity:hover{
+  color:#0d8d90;
+  cursor: pointer;
+}
 
