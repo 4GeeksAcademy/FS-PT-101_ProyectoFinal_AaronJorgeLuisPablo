@@ -25,25 +25,25 @@ with app.app_context():
     db.session.commit()
 
     clients = [
-        Clients(user_id=users[0].id, username="anauser",name="Ana",surname="López", telephone="600111221", NID="12345678A", avatar_url="0.jpg",
+        Clients(user_id=users[0].id, username="anauser",name="Ana",surname="López", telephone="600111221", NID="12345678A", avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Calle Sol 1",city="Madrid",birthdate=datetime(1990, 5, 20),gender=enumClts.female, country="España"),
-        Clients(user_id=users[1].id, username="luisuser",name="Luis",surname="Pérez", telephone="600111222", NID="12345678B", avatar_url="0.jpg",
+        Clients(user_id=users[1].id, username="luisuser",name="Luis",surname="Pérez", telephone="600111222", NID="12345678B", avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Calle Luna 2",city="Barcelona",birthdate=datetime(1988, 7, 15),gender=enumClts.male, country="España"),
-        Clients(user_id=users[2].id, username="mariauser",name="María",surname="García", telephone="600111223",NID="12345678C",avatar_url="0.jpg",
+        Clients(user_id=users[2].id, username="mariauser",name="María",surname="García", telephone="600111223",NID="12345678C",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Avenida del Mar 3",city="Valencia",birthdate=datetime(1992, 3, 10),gender=enumClts.female, country="España"),
-        Clients(user_id=users[3].id, username="juanuser",name="Juan",surname="Martínez", telephone="600111224",NID="12345678D",avatar_url="0.jpg",
+        Clients(user_id=users[3].id, username="juanuser",name="Juan",surname="Martínez", telephone="600111224",NID="12345678D",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Calle Río 4",city="Sevilla",birthdate=datetime(1985, 12, 1),gender=enumClts.male, country="España"),
-        Clients(user_id=users[4].id, username="laurauser",name="Laura",surname="Sánchez", telephone="600111225",NID="12345678E",avatar_url="0.jpg",
+        Clients(user_id=users[4].id, username="laurauser",name="Laura",surname="Sánchez", telephone="600111225",NID="12345678E",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Plaza Mayor 5",city="Bilbao",birthdate=datetime(1995, 8, 30),gender=enumClts.female, country="España"),
-        Clients(user_id=users[5].id, username="carlosuser",name="Carlos",surname="Fernández", telephone="600111226",NID="12345678F",avatar_url="0.jpg",
+        Clients(user_id=users[5].id, username="carlosuser",name="Carlos",surname="Fernández", telephone="600111226",NID="12345678F",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Calle Olivo 6",city="Granada",birthdate=datetime(1991, 2, 18),gender=enumClts.male, country="España"),
-        Clients(user_id=users[6].id, username="luciauser",name="Lucía",surname="Ruiz", telephone="600111227",NID="12345678G",avatar_url="0.jpg",
+        Clients(user_id=users[6].id, username="luciauser",name="Lucía",surname="Ruiz", telephone="600111227",NID="12345678G",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Avenida Paz 7",city="Zaragoza",birthdate=datetime(1993, 11, 5),gender=enumClts.female, country="España"),
-        Clients(user_id=users[7].id, username="daviduser",name="David",surname="Jiménez", telephone="600111228",NID="12345678H",avatar_url="0.jpg",
+        Clients(user_id=users[7].id, username="daviduser",name="David",surname="Jiménez", telephone="600111228",NID="12345678H",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Calle Jardín 8",city="Málaga",birthdate=datetime(1989, 6, 22),gender=enumClts.male, country="España"),
-        Clients(user_id=users[8].id, username="elenauser",name="Elena",surname="Moreno", telephone="600111229",NID="12345678I",avatar_url="0.jpg"
+        Clients(user_id=users[8].id, username="elenauser",name="Elena",surname="Moreno", telephone="600111229",NID="12345678I",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg"
             ,address="Calle Lago 9",city="Alicante",birthdate=datetime(1994, 9, 14),gender=enumClts.female, country="España"),
-        Clients(user_id=users[9].id, username="jorgeuser",name="Jorge",surname="Muñoz", telephone="600111230",NID="12345678J",avatar_url="0.jpg",
+        Clients(user_id=users[9].id, username="jorgeuser",name="Jorge",surname="Muñoz", telephone="600111230",NID="12345678J",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Avenida Sierra 10",city="Santander",birthdate=datetime(1987, 4, 27),gender=enumClts.male, country="España"),
     ]
 
@@ -465,7 +465,7 @@ with app.app_context():
     db.session.add(user)
     db.session.commit()
 
-    client = Clients (user_id=user.id, username="admintodopoderoso",name="Admin",surname="Pérez",telephone="666888777",NID="90289510A",avatar_url="0.jpg",
+    client = Clients (user_id=user.id, username="admintodopoderoso",name="Admin",surname="Pérez",telephone="666888777",NID="90289510A",avatar_url="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg",
             address="Edificio Vengadores, New York", city="New York", country="Estados Unidos", birthdate=datetime(1990,1,4), gender=enumClts.male)
     admin = Administrators(user_id=user.id)
     db.session.add(client)

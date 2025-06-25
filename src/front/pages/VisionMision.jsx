@@ -18,7 +18,7 @@ export const VisionMision = () => {
                         </p>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-5">
-                        <img className="img-fluid logo-img w-50 mx-auto ms-lg-6" src="src/front/assets/img/senderista1.png" alt="senderista" />
+                        <img className="img-fluid logo-img w-50 mx-auto ms-lg-6" src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721556/senderista1_rfli4d.png" alt="senderista" />
                     </div>
                 </div>
 

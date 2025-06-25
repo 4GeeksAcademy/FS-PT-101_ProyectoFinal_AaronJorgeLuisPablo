@@ -78,7 +78,7 @@ export const Home = () => {
 					{activities.length > 0 ?
 						<div className="row row-cols-md-3 mx-2">
 							{(activities.filter((item, index) => index < 9).map((item, index, arr) =>
-								<div key={index} className={"col-12 col-md-6 col-lg-4 my-2 p-3" + (index == (arr.length - 1) && index % 2 == 0 ? " d-block d-md-none d-lg-block" : "")}>
+								<div key={index} className={"col-12 col-md-6 col-lg-4 mt-2 p-3" + (index == (arr.length - 1) && index % 2 == 0 ? " d-block d-md-none d-lg-block" : "")}>
 									<ActivityCard activity={item} />
 								</div>
 							))}
@@ -94,8 +94,8 @@ export const Home = () => {
 						<p className="text-white fs-2 font1 col-12 col-md-6 text-center text-md-start">¡No pierdas el tiempo!<br />Crea ya tu cuenta de forma gratuita y empieza a ser parte de esto<br />Haz click aquí</p>
 					</div>}
 
-					<h1 className="font1 pt-5 text-center">Algunos reseñas satisfechas</h1>
-					{reviews.length > 0 ?
+					<h1 className="font1 pt-5 text-center">Algunos clientes satisfechos</h1>
+					{reviews?.length > 0 ?
 						<div className="row row-cols-md-3 mx-2 pb-5">
 							{reviews.filter((item) => item.activity_rating != null && item.activity_message != "").sort((a, b) => a.activity_rating - b.activity_rating).filter((item, index) => index < 6).map((item, index, arr) =>
 								<div key={index} className={"col-12 col-md-6 col-lg-4 my-2" + (index == (arr.length - 1) && index % 2 != 0 ? " d-block d-md-none d-lg-block" : "")}>

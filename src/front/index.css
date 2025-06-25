@@ -1,5 +1,5 @@
 body {
-  background-image: url("/src/front/assets/img/bg2.png");
+  background-image: url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/bg2_zcp6qv.png");
   background-size: 10%;
   background-repeat: repeat;
 }
@@ -42,11 +42,11 @@ body::before{
 }
 
 .BannerLoginLeft {
-  background-image: url("/src/front/assets/img/login-1.png");
+  background-image: url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721557/login-1_ubfohs.png");
 }
 
 .BannerLoginRight {
-  background-image: url("/src/front/assets/img/login-2.png");
+  background-image: url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/login-2_k0obxz.png");
 }
 
 .NavbarUserPill{
@@ -90,7 +90,7 @@ h3 {
 }
 
 .navbg{
-  background-image: linear-gradient(#439d9e, rgba(0, 0, 0, 0.671)), url("/src/front/assets/img/navbarForest.png");
+  background-image: linear-gradient(#439d9e, rgba(0, 0, 0, 0.671)), url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/navbarForest_dbesn0.png");
   background-repeat: repeat-x;
   background-size: contain;
 }
@@ -216,7 +216,7 @@ h3 {
 
 .manifiesto-section {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("/src/front/assets/img/fondo-montaña.jpg") no-repeat center center;
+    url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721556/fondo-monta%C3%B1a_c2yxrb.jpg") no-repeat center center;
   background-size: cover;
   border-radius: 1rem;
 }
@@ -246,7 +246,7 @@ h3 {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   border: 1px white solid;
-  padding: 9px 9px 10px 9px;
+  padding: 6px 0px 6px 0px;
 }
 .fixLandscape {
   width: 100%;
@@ -260,12 +260,6 @@ h3 {
   box-shadow: 0px 2px rgb(161, 161, 161);
   background-color: white;
 }
-/* .cardFormat{
-  width: 20em;
-  height: 22em;
-  box-shadow: 0px 2px rgb(161, 161, 161);
-  background-color: white;
-} */
 .fixBorder{
   object-fit: cover;
 }
@@ -283,10 +277,11 @@ h3 {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.5rem;
+  min-height: calc(1.5rem * 2);
 }
 
 .activityTextFormat {
-  font-size: 1.1em;
   font-family: Arial, Helvetica, sans-serif;
   text-align: justify;
 }
@@ -338,19 +333,20 @@ h3 {
   border-color: #48a6a7 !important;
   color: #48a6a7 !important;
 }
-.imgCardFormat{
-  max-width:100%;
-  max-height:60%;
-  overflow: hidden;
-}
 .textCardFormat{
   max-width:100%;
-  max-height:40%;
+  height:auto;
+}
+.imgCardFormat{
+  width: 100%;
+  height: 60%;
 }
 .imageCard {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1.3/1;
   object-fit: cover;
+  object-position: center;
 }
 .myActivityCard {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -418,11 +414,11 @@ h3 {
   background-size: var(--NewSignupY);
 }
 .NewProfessionalBanner{background-image: linear-gradient(var(--NewBannerAngle),rgba(82, 173, 189, 0.4),rgb(38, 56, 65)),
-  url("/media/professionalBoxBackground.jpg");
+  url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721657/professionalBoxBackground_p7w5it.jpg");
   background-position: center;
 }
 .NewSignUpBanner{background-image: linear-gradient(var(--NewBannerAngle),rgba(16, 53, 12, 0.4),rgb(34, 52, 75)),
-  url("/media/signUpBoxBackground.jpg");
+  url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721659/signUpBoxBackground_tks0dq.jpg");
   background-position: 50% 20%;
   transition: --NewSignupY 0.9s 0.3s, --NewBannerAngle 0.9s 0.3s;
 }
@@ -464,19 +460,20 @@ h3 {
   text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
 }
 .proActivityPhoto{
-  width: 20%;
+  width: 27%;
 }
 .proActivityName{
-  width: 80%;
+  width: 73%;
 }
 .imgProfessionalAct{
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
 .containerMap{
-  width: 90%;
-  height: 20em;
+  aspect-ratio: 1;
   justify-self: center;
   text-align: center;
 }
@@ -565,9 +562,16 @@ h3 {
 .autor-info {
   display: flex;
   align-items: center;
-  margin-top: 16px;
 }
-
+.commentMessage{
+  line-height: 1.5rem;
+  min-height: calc(1.5rem * 3);
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .nombre {
   font-weight: bold;
 }
@@ -601,13 +605,13 @@ h3 {
 }
 
 .HomeCarSlide:nth-child(1){
-  background-image: radial-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.8)), url("/media/tourist-bus.jpg");
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.8)), url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721658/tourist-bus_kbpm8r.jpg");
 }
 .HomeCarSlide:nth-child(2){
-  background-image: radial-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.8)), url("/media/coast-walk.jpg");
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.8)), url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721659/coast-walk_sykjvd.jpg");
 }
 .HomeCarSlide:nth-child(3){
-  background-image: radial-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.8)), url("/media/surf-wave.jpg");
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.8)), url("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721658/surf-wave_vgwdz5.jpg");
 }
 
 .img-contactanos{
@@ -816,8 +820,10 @@ body.modal-open {
 
 .MediaActivity{
   height: 400px;
-  width: 600px;
-  object-fit: contain;
+  width: 100%;
+  max-width: 600%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .PersonalTabContent{
@@ -833,7 +839,6 @@ body.modal-open {
 }
 .RatingStar{
   cursor: "pointer";
-  font-size: "1.5rem";
 }
 
 .BuyButton{
@@ -842,16 +847,20 @@ body.modal-open {
   background-color: #F2EFE7;
   transition: all 0.3s ease-in-out;
 }
-.BuyButton:disabled{
-  background-color: #ffffff;
+.BuyButtonDisabled{
+  background-color: #ffffffab;
   color:#006A71;
 }
 
 .BuyButton:hover{
   color:#0d8d90;
   background-color: #F2EFE7;
-  
   transform: scale(1.1);
+}
+
+.BuyButtonDisabled:hover{
+  background-color: #ffffffab;
+  color:#006A71;
 }
 
 .RatingTooltip {
@@ -912,3 +921,12 @@ body.modal-open {
   cursor: pointer;
 }
 
+
+.ProfCard{
+  cursor: pointer;
+}
+
+.custom-tooltip{
+  --bs-tooltip-bg:  #0d8d90;
+  --bs-tooltip-color: var(--bs-white);
+}

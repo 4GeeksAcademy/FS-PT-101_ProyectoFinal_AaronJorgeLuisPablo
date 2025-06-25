@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-const StarRating = ({ rating, onChange = null, precision = 0.5, variable = true, small=false}) => {
+const StarRating = ({ rating, onChange = null, precision = 0.5, variable = true, className = "TextDark"}) => {
 	const [hover, setHover] = useState(null);
 	const [previous, setPrevious] = useState(null)
 
 	const getStarClass = (index) => {
 		const value = hover ?? rating;
-		if (value >= index + 1) return "fa-solid fa-star";
-		if (value >= index + 0.5) return "fa-solid fa-star-half-stroke";
-		return "fa-regular fa-star";
+		if (value >= index + 1) return "fa-solid fa-star"
+		if (value >= index + 0.5) return "fa-solid fa-star-half-stroke"
+		return "fa-regular fa-star"
 	};
 
 	const handleClick = (index, event) => {
@@ -33,17 +33,23 @@ const StarRating = ({ rating, onChange = null, precision = 0.5, variable = true,
 		}
 	};
 
-
+	useEffect(()=>{
+		const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+		const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+	},[])
 
 	return (
-		<div style={{ display: "flex"}}>
-			{[...Array(5)].map((item, i) => <i key={i} className={`${getStarClass(i)} TextSecondary RatingStar fs-4`}
+		<div className="d-flex">
+			<div data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title={"★ " + rating}>
+
+			{[...Array(5)].map((item, i) => <i key={i} className={`${getStarClass(i)} ${className} RatingStar`}
 				onClick={(e) => handleClick(i, e)}
 				onMouseMove={(e) => handleMouseMove(i, e)}
 				onMouseLeave={() => setHover(null)}
-			/>)}
+				/>)}
+				</div>
 		</div>
-	);
-};
+	)
+}
 
 export default StarRating;

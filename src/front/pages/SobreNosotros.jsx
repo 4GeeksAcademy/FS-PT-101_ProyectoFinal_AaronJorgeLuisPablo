@@ -6,7 +6,7 @@ export const SobreNosotros = () => {
         <>
             <div className="container my-5 bg-white p-0">
 
-                <div className="manifiesto-section my-5 py-5 text-center text-white rounded">
+                <div className="manifiesto-section py-5 text-center text-white rounded">
                     <div className="container px-4">
                         <h2 className="mb-4 display-5 fw-bold">Nuestro Manifiesto</h2>
                         <p className="lead px-md-5">
@@ -27,7 +27,7 @@ export const SobreNosotros = () => {
                     <div className="col-sm-12 col-md-6 col-lg-5 mb-4 mb-md-0">
                         <img
                             className="img-fluid logo-img w-100 mx-auto"
-                            src="src/front/assets/img/LogoNomadik.png"
+                            src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/Logo_Nomadik_txkiej.png"
                             alt="Logo"
                         />
                     </div>

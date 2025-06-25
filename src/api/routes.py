@@ -66,7 +66,9 @@ def get_one_user(id):
     stmt = select(Users).where(Users.id == id)
     user = db.session.execute(stmt).scalar_one_or_none()
     if user is None:
-        return jsonify({"Error": "User not found"}), 404
+        return jsonify({"error": "User not found"}), 404
+    elif user.is_active == False:
+        return jsonify({"error": "This user has been removed from our services"}), 401
     return jsonify(user.serialize()),200
 
 @api.route('/user/', methods=['GET'])
@@ -86,7 +88,7 @@ def get_one_user_by_token():
 @api.route('/signup', methods=['POST'])
 def create_user():
     try:
-        admin = db.session.execute(select(Administrators)).scalars()
+        admin = db.session.execute(select(Administrators)).scalars().all()
 
         user = Users(email=request.form.get("email"), password=generate_password_hash(request.form.get("password")))
         db.session.add(user)
@@ -115,17 +117,18 @@ def login():
     if not data or ("email" not in data and "username" not in data) or "password" not in data:
         return jsonify({"error":"Missing fields for login"}), 400
     if "email" in data:
-        stmt = select(Users).where(and_(Users.email == data["email"], Users.is_active == True))
+        stmt = select(Users).where(Users.email == data["email"])
     elif "username" in data:
-        stmt = select(Users).join(Clients).where(and_(Clients.username == data["username"], Users.is_active == True))
+        stmt = select(Users).join(Clients).where(Clients.username == data["username"])
     user = db.session.execute(stmt).scalar_one_or_none()
 
     if not user:
         return jsonify({"error":"User not found"}), 404
-    if not check_password_hash(user.password, data["password"]):
+    elif user.is_active == False:
+        return jsonify({"error": "This user has been removed from our services"}), 401
+    elif not check_password_hash(user.password, data["password"]):
         return jsonify({"error":"Email/Password don't match"}), 401
     
-    admin = db.session.execute(select(Administrators).where(Administrators.user_id == user.id)).scalar_one_or_none()
 
     token = create_access_token(identity=str(user.id),expires_delta=False)
     userData = user.serialize()
@@ -137,7 +140,7 @@ def login():
         response_body = {
             "needs_filling": True
         }
-    return jsonify({**userData, **response_body, "id": user.id, "success": True, "token": token, "is_admin": admin is not None}), 200
+    return jsonify({**userData, **response_body, "id": user.id, "success": True, "token": token}), 200
 
 @api.route('/users/<int:id>', methods=['DELETE'])
 @jwt_required()
@@ -154,74 +157,6 @@ def delete_user(id):
         db.session.rollback()
         return jsonify({"error":"Couldn't delete user"})
     return jsonify({"success": True, "user": user.serialize()}), 200
-    
-@api.route('/users/<int:id>', methods=["PUT"])
-@jwt_required()
-def edit_user(id):
-    user_id = get_jwt_identity()
-    if int(id) != int(user_id):
-        return jsonify({"error": "Forbidden access"}), 403
-    
-    stmt = select(Users).where(Users.id == id)
-    user = db.session.execute(stmt).scalar_one_or_none()
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-    prof = db.session.execute(select(Professionals).where(Professionals.user_id == user.id)).scalar_one_or_none()
-
-    data = request.json
-    if not "is_professional" in data and data["is_professional"] == "true" and not prof:
-        return jsonify({"error": "Profile info not found"}), 404
-
-    if "birthdate" in data:
-        fecha_iso = data['birthdate']
-        data["birthdate"] = datetime.fromisoformat(fecha_iso.replace("Z", "+00:00"))
-
-    if 'avatar' in request.files:
-        avatar = request.files.get("avatar")
-        avatar.filename = f"{user.id}.jpg"
-        filepath = f"public/avatar/{avatar.filename}"
-        avatar.save(os.path.join(filepath))
-        user.avatar_url = avatar.filename
-    db.session.commit()
-
-    user_cells = ["username", "email", "telephone", "avatar_url", "name", "surname", "NID","address", "city", "birthdate"]
-    prof_cells = ["bio", "business_name", "tax_address", "nuss"]
-
-    if "gender" in data:
-        setattr(user, "gender", enumClts(data["gender"]))
-    if "type" in data:
-        setattr(prof, "type", enumProf(data["type"]))
-
-    for cell in user_cells:
-        if cell in data:
-            setattr(user, cell, data[cell])
-    for cell in prof_cells:
-        if cell in data:
-            setattr(prof, cell, data[cell])
-
-    try:
-        db.session.commit()
-    except IntegrityError as e:
-        db.session.rollback()
-        error = str(e).lower()
-        message = "Unknown error"
-        if "unique" in error:
-            if "email" in error:
-                message = "Email already exists in database"
-            elif "nid" in error:
-                message = "NID already exists in database"
-            elif "username" in error:
-                message = "User already exists in database"
-            elif "telephone" in error:
-                message = "Telephone already exists in database"
-        return jsonify({"error": message}), 409
-    except DataError as e:
-        db.session.rollback()
-        return jsonify({"error": "Provided data is out of bounds"}), 422
-    except Exception:
-        db.session.rollback()
-        return jsonify({"error": "Couldn't update user"}), 500
-    return jsonify({"success": True, "user": user.serialize()}), 200
 
 #Endpoints para Client
 @api.route('/clients', methods=['POST'])
@@ -233,18 +168,14 @@ def create_client():
         if not user:
             return jsonify({"error": "User not found"}), 404
 
+        client_avatar = "https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg"
+        avatar = request.form.get("avatar")
+        if avatar:
+            client_avatar = avatar
+
         client = Clients(user_id = user_id, username=request.form.get("username"), name=request.form.get("name"), surname=request.form.get("surname"), telephone=request.form.get("telephone"),
                         NID=request.form.get("NID"), address=request.form.get("address"), city=request.form.get("city"), country=request.form.get("country"),
-                        gender=enumClts(request.form.get("gender")))
-
-        avatar = request.files.get("avatar")
-        if not avatar:
-            client.avatar_url="0.jpg"
-        else:
-            avatar.filename = f"{user.id}.jpg"
-            filepath = f"public/avatar/{avatar.filename}"
-            avatar.save(os.path.join(filepath))
-            client.avatar_url = avatar.filename
+                        gender=enumClts(request.form.get("gender")), avatar_url = client_avatar)
         
         fecha_iso = request.form.get('birthdate')
         if fecha_iso is not None:
@@ -277,12 +208,9 @@ def edit_client():
         for cell in client_cells:
             setattr(client, cell, request.form.get(cell))
 
-        avatar = request.files.get("avatar")
+        avatar = request.form.get("avatar")
         if avatar:
-            avatar.filename = f"{client.user_id}.jpg"
-            filepath = f"public/avatar/{avatar.filename}"
-            avatar.save(os.path.join(filepath))
-            client.avatar_url = avatar.filename
+            client.avatar_url = avatar
         
         fecha_iso = request.form.get('birthdate')
         if fecha_iso is not None:
@@ -298,7 +226,6 @@ def edit_client():
             prof.type = enumProf(request.form.get("type"))
             for cell in prof_cells:
                 setattr(prof, cell, request.form.get(cell))
-
 
         db.session.commit()
     except Exception as e:
@@ -509,8 +436,6 @@ def create_info_activity():
     prof_id = int(get_jwt_identity())
     stmt = select(Professionals).where(Professionals.user_id == prof_id)
     prof = db.session.execute(stmt).scalar_one_or_none()
-    # if not data or "name" not in data or "desc" not in data or "type" not in data or "location" not in data or "price" not in data or "slots" not in data or "start_date" not in data or "end_date" not in data or "meeting_point" not in data:
-    #     return jsonify({"error": "Missing fields for creating activity."}), 400
     price = request.form.get("price")
     slots = request.form.get("slots")
     if not prof:
@@ -540,18 +465,15 @@ def create_info_activity():
         return jsonify({"error":"Couldn't create info activity"})
 
     try:
-        media = request.files.getlist("media")
+        media = request.form.getlist("media")
+        print(media)
         if media:
-            medias = []
-            for i in media:
-                if os.path.splitext(i.filename)[1] == ".jpg":
-                    print(i)
-                    filename = f"{uuid.uuid4()}.jpg"
-                    filepath = f"public/events/{filename}"
-                    i.save(os.path.join(filepath))
-                    m = Media(info_activity_id = info_activity.id, url=filename)
-                    medias.append(m)
-            db.session.add_all(medias)
+            media_result = []
+            for m in media:
+                med = Media(url=m, info_activity_id = info_activity.id)
+                media_result.append(med)
+
+            db.session.add_all(media_result)
             db.session.commit()
     except Exception as e:
         print(e)
@@ -560,7 +482,6 @@ def create_info_activity():
         db.session.commit()
         return jsonify({"error": "Error while uploading medias"}), 500
     try:
-        
         activity = Activities(info_id=info_activity.id,price=price, slots=slots, start_date=fecha_inicio, end_date=fecha_fin, meeting_point=request.form.get("meeting_point"))
         db.session.add(activity)
         db.session.commit()

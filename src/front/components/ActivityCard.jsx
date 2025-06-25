@@ -40,9 +40,9 @@ export const ActivityCard = (props) => {
     
     return (
         (props.activity != null ?
-            < div className="card cardFormat p-0 rounded d-flex MoveUpAnimation" onClick={() => {navigate("/activities/" + props.activity.id)}}>
-                <div className="imgCardFormat position-relative h-50">
-                    {store.user.id != null && (store.user.favourites?.map((item) => item.id).includes(props.activity.info_activity.id) ?
+            < div className="card cardFormat p-0 rounded d-flex MoveUpAnimation overflow-hidden" onClick={() => {navigate("/activities/" + props.activity.id)}}>
+                <div className="imgCardFormat ">
+                    {store.user.id != null && (store.user.favourites?.map((item) => item.activity.id).includes(props.activity.info_activity.id) ?
                         <button className="btn FavButton position-absolute top-0 end-0" onClick={((e) => {
                             e.stopPropagation()
                             if (store.user.needs_filling == true)
@@ -50,7 +50,7 @@ export const ActivityCard = (props) => {
                             else
                                 delItem()
                         })}>
-                            <img src="/media/heart-full.svg" alt="" />
+                            <img src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721658/heart-full_lwj5lu.svg" alt="" />
                         </button>
                         :
                         <button className="btn FavButton position-absolute top-0 end-0" onClick={((e) => {
@@ -60,19 +60,19 @@ export const ActivityCard = (props) => {
                             else
                             favItem()
                         })}>
-                            <img src="/media/heart-empty.svg" alt="" />
+                            <img src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721657/heart-empty_myfvgl.svg" alt="" />
                         </button>
                     )}
-                    <img src={(props.activity?.info_activity.media.length > 0 ?
-                        (props.activity?.info_activity.media[0].includes("http") ? props.activity.info_activity.media[0] : "/events/" + props.activity?.info_activity.media[0])
-                        : "/events/0.jpg")} className="rounded-top-1 imageCard"></img>
+                    <img  className="imageCard" src={(props.activity?.info_activity.media.length > 0 ?
+                        (props.activity?.info_activity.media[0] ? props.activity.info_activity.media[0] : props.activity?.info_activity.media[0]) /// PENDIENTE
+                        : "https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721672/0_gf4vc4.jpg")}></img>
                 </div>
-                <div className="p-3 textCardFormat h-50">
+                <div className="px-3 textCardFormat ">
+                    <h6 className="fw-bold mt-2">{props.activity.info_activity.name}</h6>
                     {<StarRating rating={props.activity.info_activity.rating} variable={false}/>}
-                    <h6 className="fw-bold mt-3">{props.activity.info_activity.name}</h6>
-                    <p className="fw-medium">{props.activity.meeting_point}</p>
-                    <p className="textFormat">{props.activity.info_activity.desc}</p>
-                    <p className="text-center">{formatDate(props.activity.start_date)}</p>
+                    <p className="fw-medium my-0">{props.activity.meeting_point}</p>
+                    <p className="textFormat mt-0">{props.activity.info_activity.desc}</p>
+                    <p className="text-center mt-auto mb-0">{formatDate(props.activity.start_date)}</p>
                 </div>
             </div>
             :

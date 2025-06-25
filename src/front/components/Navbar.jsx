@@ -57,7 +57,7 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-lg navbar-light navbg p-0 sticky-top BgSecondary">
 			<div className="container-fluid text-white">
 				<a className="navbar-brand" href="#">
-					<img className="img-fluid logo" src="/src/front/assets/img/Logo_Nomadik.png" alt="Logo" />
+					<img className="img-fluid logo" src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/Logo_Nomadik_txkiej.png" alt="Logo" />
 				</a>
 
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@ export const Navbar = () => {
 					</div>
 
 					<form className="mx-auto busquedaBarra input-group">
-						<input className="form-control dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Buscar..." aria-label="Search" value={search} onChange={handleSearch} />
+						<input className="form-control dropdown-toggle me-2" role="button" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Buscar..." aria-label="Search" value={search} onChange={handleSearch} />
 						<ul className="dropdown-menu dropdown-menu-center NavbarSearchDropdown my-2 my-lg-0" data-bs-auto-close="outside">
 							{(searching ? <div className="text-center">
 								<div className="spinner-border mx-auto LoadingSpinner" role="status">
@@ -121,7 +121,7 @@ export const Navbar = () => {
 							</div> :
 							<div className="dropdown w-100">
 								<div className="shadow nav-item rounded-pill d-flex NavbarUserPill" data-bs-toggle="dropdown" aria-expanded="false">
-									<img className="rounded-circle" src={"/avatar/" + (store.user.avatar_url ? store.user.avatar_url : "0.jpg")} alt="" />
+									<img className="rounded-circle" src={(store.user.avatar_url ? store.user.avatar_url : "https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg")} alt="" />
 									<span className="text-white text-capitalize fs-6 fw-semibold ms-2 me-3 align-self-center">{store.user.username}</span>
 
 								</div>

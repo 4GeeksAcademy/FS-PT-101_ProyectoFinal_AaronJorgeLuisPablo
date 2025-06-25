@@ -23,7 +23,7 @@ export const DetailsProfessional = () => {
     return (
         <div className="container details mt-3 p-0 d-flex flex-column mb-3">
             <div className="profile d-flex justify-content-around">
-                <img className="imagen" src={"/avatar/" + professional.user.avatar_url} />
+                <img className="imagen" src={professional.user.avatar_url} />
                 <div className="professional p-0">
                     <h3>{professional.user.name + " " + professional.user.surname}</h3>
                     <h6>{professional.user.creation_date}</h6>
@@ -48,8 +48,8 @@ export const DetailsProfessional = () => {
 
                     {
                         store.all_activities?.filter((item)=>item.info_activity.professional.id == professional.id).map((activity) => (
-                            <div className="col-12 col-md-6 col-lg-4">
-                                <ActivityCard key={activity.id} activity={activity}/>
+                            <div  key={activity.id} className="col-12 col-md-6 col-lg-4">
+                                <ActivityCard activity={activity}/>
                             </div>
                         ))
                     }

@@ -53,7 +53,7 @@ export const ResetPassword = (props) => {
 				<div className="col-12 col-md-8">
 					<div className="row my-4 w-75 mx-auto">
 						<div className="col-6 col-md-4 mx-auto">
-							<img className="img-fluid" src="src\front\assets\img\Logo_Nomadik.png" alt="" />
+							<img className="img-fluid" src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/Logo_Nomadik_txkiej.png" alt="" />
 						</div>
 						<div className="col-12 col-md-8 align-self-center">
 							{props.new ? <h3 className="display-5 fw-bold text-center my-2 TextDark">Cambio de contraseña</h3>

@@ -28,7 +28,7 @@ export const Contacto = () => {
             <div className="container p-lg-2 p-4">
                 <div className="row mb-5 mt-5 bg-white rounded overflow-hidden">
                     <div className="col-sm-12 col-md-6 col-lg-6 p-0">
-                        <img src="./src/front/assets/img/contacto.png" className="img-contactanos" alt="" style={{height: "-webkit-fill-available", direction: "rtl"}}/>
+                        <img src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721556/contacto_ue3w69.png" className="img-contactanos" alt="" style={{height: "-webkit-fill-available", direction: "rtl"}}/>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-6">
                         <h3 className="p-4 fw-bold">Nos encanta escucharte.

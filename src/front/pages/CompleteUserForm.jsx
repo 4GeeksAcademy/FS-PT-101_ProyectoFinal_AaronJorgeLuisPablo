@@ -5,9 +5,9 @@ import collection from "../services/collection"
 
 export const CompleteUserForm = (props) => {
 	const [user, setUser] = useState(null)
-	const [formData, setFormdata] = useState({ name: "", surname: "", NID: "", telephone: "", birthdate: undefined, username: "", city: "", country: "", address: "", gender: "NOT TELLING", avatar: "", bio: "", type: "FREELANCE", business_name: "", tax_address: "", nuss: "", error: false, response: "" })
+	const [formData, setFormdata] = useState({ name: "", surname: "", NID: "", telephone: "", birthdate: undefined, username: "", city: "", country: "", address: "", gender: "NOT TELLING", bio: "", type: "FREELANCE", business_name: "", tax_address: "", nuss: "", error: false, response: "" })
 	const [messages, setMessages] = useState({ username: "Empieza a escribir para comprobar si está disponible.", usernameClass: "", usernameStatus: false })
-	const [avatarImg, setAvatarImg] = useState("/avatar/0.jpg")
+	const [avatarImg, setAvatarImg] = useState("https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg")
 	const [birthdate, setBirthdate] = useState("")
 
 	const { store, dispatch } = useGlobalReducer()
@@ -25,6 +25,7 @@ export const CompleteUserForm = (props) => {
 				Object.entries(formData).forEach(([clave, valor]) => {
 					request_body.append(clave, valor)
 				});
+				request_body.append("avatar", avatarImg)
 				const resp = await collection.createClient(request_body)
 				if (!resp.success)
 					setFormdata({ ...formData, error: true, response: resp.response })
@@ -42,6 +43,7 @@ export const CompleteUserForm = (props) => {
 				Object.entries(formData).forEach(([clave, valor]) => {
 					request_body.append(clave, valor)
 				});
+				request_body.append("avatar", avatarImg)
 				const resp = await collection.editUser(request_body)
 				if (!resp.success)
 					setFormdata({ ...formData, error: true, response: resp.response })
@@ -87,16 +89,16 @@ export const CompleteUserForm = (props) => {
 
 	const getUser = async () => {
 		const resp = await collection.loginToken()
-		if ("error" in resp)
+		if("error" in resp)
 			navigate("/")
-		else {
+		else{
 			let prof = {}
 			if (resp.is_professional) {
 				prof = resp.professional
 				delete resp.professional
 			}
 			setUser(resp)
-			setAvatarImg("/avatar/" + resp.avatar_url)
+			setAvatarImg(resp.avatar_url)
 			if (resp.birthdate != null)
 				setBirthdate(new Date(resp.birthdate).toISOString().split("T")[0])
 			if (!props.firstTime) {
@@ -106,8 +108,30 @@ export const CompleteUserForm = (props) => {
 		}
 	}
 
+	const handleAvatarChange = async (e) =>{
+		const file = e.target.files[0]
+		const data = new FormData()
+		try {
+			data.append("file", file)
+			data.append("upload_preset", "Preset_Nomadik")
+			data.append("cloud_name", "dsn6qtd9g")
+			const resp = await fetch('https://api.cloudinary.com/v1_1/dsn6qtd9g/image/upload', {
+				method: 'POST',
+				body: data,
+			})
+			const result = await resp.json()
+			setAvatarImg(result.secure_url)
+
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	useEffect(() => {
-		getUser()
+		if(store.user.id == null)
+			navigate("/login")
+		if(user == null)
+			getUser()
 	}, [])
 
 	return (
@@ -118,7 +142,7 @@ export const CompleteUserForm = (props) => {
 					<div className="row my-4 col-md-8 mx-auto align-items-center">
 						{props.firstTime ? <>
 							<div className="col-6 col-md-3 mx-auto">
-								<img className="img-fluid" src="\src\front\assets\img\Logo_Nomadik.png" alt="" />
+								<img className="img-fluid" src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/Logo_Nomadik_txkiej.png" alt="" />
 							</div>
 							<div className="col-6 col-md-9 align-self-center">
 								<p className="TextDark fs-5 fw-semibold mt-3">Necesitamos que complete su perfil. No podrá realizar algunas acciones hasta que lo haga.</p>
@@ -214,10 +238,7 @@ export const CompleteUserForm = (props) => {
 								</div>
 								<div className="col-9 mb-3">
 									<label htmlFor="avatar" className="form-label col-10">Foto de perfil <span className="ms-2 text-light-emphasis">(.jpg)</span></label>
-									<input className="form-control" type="file" accept="image/jpeg" name="avatar" id="avatar" onChange={(e) => {
-										setFormdata({ ...formData, avatar: e.target.files[0] })
-										setAvatarImg(window.URL.createObjectURL(e.target.files[0]))
-									}} />
+									<input className="form-control" type="file" accept="image/jpeg" name="avatar" id="avatar" onChange={handleAvatarChange} />
 								</div>
 							</div>
 							{store.user?.is_professional ? <>

@@ -54,6 +54,8 @@
 		]
 	},
 	"dependencies": {
+		"@cloudinary/react": "^1.14.3",
+		"@cloudinary/url-gen": "^1.21.0",
 		"@fortawesome/fontawesome-free": "^6.7.2",
 		"@stripe/react-stripe-js": "^3.7.0",
 		"@stripe/stripe-js": "^7.3.1",

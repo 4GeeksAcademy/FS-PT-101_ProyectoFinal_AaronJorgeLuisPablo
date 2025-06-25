@@ -30,7 +30,7 @@ return (
 					<div className="row pt-3 pt-md-0">
 						<div className="col-8 col-md-3 justify-content-center align-content-center mx-auto px-5 px-md-3">
 							<img className="shadow img-fluid rounded-circle NoDeformImg my-auto"
-								src={"/avatar/" + (store.user?.avatar_url ? store.user?.avatar_url : "0.jpg")} alt="avatar"
+								src={(store.user?.avatar_url ? store.user?.avatar_url : "https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg")} alt="avatar"
 							/>
 						</div>
 						<div className="col-12 col-md-9 align-items-center align-items-md-start my-3 row">

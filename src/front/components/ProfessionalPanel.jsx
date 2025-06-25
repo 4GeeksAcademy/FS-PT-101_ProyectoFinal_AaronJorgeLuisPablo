@@ -4,6 +4,10 @@ import collection from "../services/collection"
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { LogoBinario } from "./PdfLogo";
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 
 pdfMake.vfs = pdfFonts?.pdfMake?.vfs || pdfFonts.vfs || {};
 
@@ -18,9 +22,10 @@ export const ProfessionalPanel = () => {
 		price: "", slots: "", start_date: "", end_date: "", meeting_point: ""
 	})
 	const [formData, setFormdata] = useState({
-		name: "", desc: "", type: "LEISURE", location: "", media: [],
+		name: "", desc: "", type: "LEISURE", location: "",
 		price: "", slots: "", start_date: "", end_date: "", meeting_point: ""
 	})
+
 	const [media, setMedia] = useState([])
 	const [response, setResponse] = useState({ message: "", success: false })
 
@@ -132,7 +137,11 @@ export const ProfessionalPanel = () => {
 			Object.entries(formData).forEach(([clave, valor]) => {
 				request_body.append(clave, valor)
 			})
-			media.map((item) => request_body.append("media", item))
+			console.log(media)
+			media.forEach((url)=>{
+				if (url != "")
+				request_body.append("media", url)
+			})
 			const resp = await collection.createInfoActivity(request_body)
 			console.log(resp)
 			if (!resp.success)
@@ -142,12 +151,11 @@ export const ProfessionalPanel = () => {
 				setResponse({ error: false, message: "Actividad creada con éxito" })
 			}
 		}
-		if (success) {
-			loadActivities()
-			window.bootstrap.Modal.getInstance(modalRef.current).hide()
-			handleReset()
-
-		}
+		// if (success) {
+		// 	loadActivities()
+		// 	window.bootstrap.Modal.getInstance(modalRef.current).hide()
+		// 	handleReset()
+		// }
 	}
 
 	const handleChange = async (e) => {
@@ -177,6 +185,30 @@ export const ProfessionalPanel = () => {
 			name: "", desc: "", type: "LEISURE", location: "", media: [],
 			price: "", slots: "", start_date: "", end_date: "", meeting_point: ""
 		})
+	}
+
+	const handleMediaUpload = async (e) => {
+		const files = e.target.files
+		let medias = []
+		if (files.length > 0)
+		for (let f of files) {
+			const data = new FormData()
+			try {
+				data.append("file", f)
+				data.append("upload_preset", "Preset_Nomadik")
+				data.append("cloud_name", "dsn6qtd9g")
+				const resp = await fetch('https://api.cloudinary.com/v1_1/dsn6qtd9g/image/upload', {
+					method: 'POST',
+					body: data,
+				})
+				const result = await resp.json()
+				medias.push(result.secure_url)
+
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		setMedia([...media, ...medias])
 	}
 
 	useEffect(() => {
@@ -379,19 +411,14 @@ export const ProfessionalPanel = () => {
 										<fieldset ref={setImg}>
 											<div className="col-12 mb-3">
 												<label htmlFor="media" className="form-label col-12">Imágenes de la actividad <span className="ms-2 text-light-emphasis">(.jpg)</span></label>
-												<input className="form-control" type="file" accept="image/jpeg" multiple name="media" id="media" onChange={(e) => {
-													setMedia([...e.target.files || []])
-												}} />
-											</div>
-											<div id="mediaHelpBlock" className="col-12 form-text">
-												Debes elegir todas las fotos de la actividad a la vez.
+												<input className="form-control" type="file" accept="image/jpeg" multiple name="media" id="media" onChange={handleMediaUpload} />
 											</div>
 										</fieldset>
 									</div>
 									<div className="col-12 d-flex overflow-auto gap-3 p-3 ActFormGallery">
 										{infoAct.media.length > 0 ? infoAct.media.map((item, index) => {
 											return <img key={index} src={(!item.includes("http") ? "/media/events/" : "") + item} id="preview" className="img-fluid NoDeformImg" />
-										}) : media.length > 0 && media.map((item, index) => <img key={index} src={window.URL.createObjectURL(item)} id="preview" className="img-fluid NoDeformImg" />
+										}) : media.length > 0 && media.map((item, index) => <img key={index} src={item} id="preview" className="img-fluid NoDeformImg" />
 										)}
 									</div>
 

@@ -49,7 +49,7 @@ export const NewProfessionalForm = () => {
 				<div className="col-12 col-md-8">
 					<div className="row my-4 col-md-10 mx-auto align-items-center">
 							<div className="col-6 col-md-3 mx-auto">
-								<img className="img-fluid" src="\src\front\assets\img\Logo_Nomadik.png" alt="" />
+								<img className="img-fluid" src="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721555/Logo_Nomadik_txkiej.png" alt="" />
 							</div>
 							<div className="col-6 col-md-9 align-self-center">
 								<p className="TextDark fs-5 fw-semibold mt-3">Necesitamos conocer datos sobre tu situación fiscal para poder procesar los pagos. Por favor complete este formulario.</p>

@@ -33,10 +33,13 @@ class Users(db.Model):
 
     client: Mapped["Clients"] = relationship("Clients", back_populates="user", uselist=False)
     professional: Mapped["Professionals"] = relationship("Professionals",back_populates="user",uselist=False)
+    admin: Mapped["Administrators"] = relationship(back_populates="user", uselist=False)
 
     def serialize(self):
         prof = {name: value for name, value in self.professional.serialize().items() if name != "user"} if self.professional else None
-        response = self.client.serialize() if self.client is not None else {"username": f"traveler{self.id}", "avatar_url": "0.jpg"}
+        response = self.client.serialize() if self.client is not None else {"username": f"traveler{self.id}", "avatar_url": "https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg"}
+        if self.admin is not None:
+            response = {**response, "is_admin": True}
         return {**response,
             "id": self.id,
             "email": self.email,
@@ -54,7 +57,7 @@ class Clients(db.Model):
     telephone: Mapped[str] = mapped_column(String(15), unique=True, nullable=False)
     NID: Mapped[str] = mapped_column(String(10), unique=True, nullable=False)
     creation_date: Mapped[datetime] = mapped_column(DateTime(), default=datetime.now(timezone.utc))
-    avatar_url: Mapped[str] = mapped_column(String, default="0.jpg")
+    avatar_url: Mapped[str] = mapped_column(String, default="https://res.cloudinary.com/dsn6qtd9g/image/upload/v1750721682/0_y2kkuy.jpg")
     address: Mapped[str] = mapped_column(String, nullable=True)
     city: Mapped[str] = mapped_column(String, nullable=True)
     country: Mapped[str] = mapped_column(String, nullable=True)
@@ -156,6 +159,7 @@ class Activities(db.Model):
             "meeting_point": self.meeting_point,
             "is_active": self.is_active,
             "info_activity": self.info_activity.serialize(),
+            "slots_taken": len(self.inscriptions),
             **response_body
         }
 
@@ -251,8 +255,9 @@ class Media(db.Model):
 
 class Administrators(db.Model):
     __tablename__ = "administrators"
-    user_id: Mapped[int] = mapped_column(
-        ForeignKey("users.id"), primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), primary_key=True)
+
+    user: Mapped["Users"] = relationship(back_populates="admin")
 
 class Reviews(db.Model):
     __tablename__ = "reviews"
