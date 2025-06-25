@@ -15,7 +15,7 @@ export const UserCard = (props) => {
                 {props.is_professional == true &&
                     <p><strong>Nombre de la empresa:</strong> {props.business}<br></br><strong>Calificación:</strong> {props.rating}<br></br><strong>Tipo de negocio:</strong> {props.type}</p>
                 }
-                <button className="btn reportButtonFormat p-2" onClick={props.navigate}>Ir al perfil del profesional</button>
+                <button className="btn reportButtonFormat p-2" onClick={props.navigate}>Ir al perfil del usuario</button>
             </div>
 
         </div>
